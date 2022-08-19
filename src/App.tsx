@@ -18,7 +18,7 @@ function App() {
       {  value: '' }]
   ])
   const[playerX, setPlayerX] = useState(true)
-  const[winner, setWinner] = useState("")
+
   function clickCell (rowIndex: number, cellIndex: number) {
     const boardCopy = structuredClone(board)
     boardCopy[rowIndex][cellIndex].value = playerX ?"X":"O"
@@ -28,9 +28,11 @@ function App() {
    useEffect(() => {
     checkWinner();
   }, [board, checkWinner]);
+
    function checkWinner () {
      const winner = checkRows(board) || checkColumns(board) || checkDiagonals(board)
-     setWinner(winner) 
+     return winner
+
    }
     function checkRows (board: any[][]) {
       for (let row of board) {
@@ -75,7 +77,6 @@ function App() {
        [{ value: "" }, { value: "" }, { value: "" }]
      ])
      setPlayerX(true)
-     setWinner("")
    }
    
    return (
@@ -86,15 +87,13 @@ function App() {
               return <div className='cell' onClick={(e)=>{
                 setPlayerX(!playerX)
                 clickCell (rowIndex, cellIndex)
-              
-              
               }}>{cell.value}</div>
             })
          }
           )}
         
       </div>
-      {winner && <div className='winner'><h1>Player {winner} win the game</h1> <button onClick={newGame}>Play Again</button></div>}
+      {checkWinner() ?  <div className='winner'><h1>Player {checkWinner()} win the game</h1> <button onClick={newGame}>Play Again</button></div> :null}
 
     </div>
   )
