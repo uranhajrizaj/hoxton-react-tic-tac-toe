@@ -66,8 +66,17 @@ function App() {
       return null
     }
     
-
-  return (
+   function newGame() {
+     setBoard([
+       [{ value: "" }, { value: "" }, { value: "" }],
+       [{ value: "" }, { value: "" }, { value: "" }],
+       [{ value: "" }, { value: "" }, { value: "" }]
+     ])
+     setPlayerX(true)
+     setWinner("")
+   }
+   
+   return (
     <div className="App">
        <div className='board'>
          {board.map((row, rowIndex) => {
@@ -82,7 +91,8 @@ function App() {
           )}
         
       </div>
-      {winner && <div className='winner'><h1>Player {winner} win the game</h1></div>}
+      {winner && <div className='winner'><h1>Player {winner} win the game</h1> <button onClick={newGame}>Play Again</button></div>}
+
     </div>
   )
 }
