@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 
@@ -24,7 +24,10 @@ function App() {
     boardCopy[rowIndex][cellIndex].value = playerX ?"X":"O"
     setBoard(boardCopy)
   }
-
+  
+   useEffect(() => {
+    checkWinner();
+  }, [board, checkWinner]);
    function checkWinner () {
      const winner = checkRows(board) || checkColumns(board) || checkDiagonals(board)
      setWinner(winner) 
@@ -83,7 +86,7 @@ function App() {
               return <div className='cell' onClick={(e)=>{
                 setPlayerX(!playerX)
                 clickCell (rowIndex, cellIndex)
-                checkWinner ()
+              
               
               }}>{cell.value}</div>
             })
