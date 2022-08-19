@@ -26,8 +26,7 @@ function App() {
   }
 
    function checkWinner () {
-     const boardCopy = structuredClone(board)
-     const winner = checkRows(boardCopy) || checkColumns(boardCopy) || checkDiagonals(boardCopy)
+     const winner = checkRows(board) || checkColumns(board) || checkDiagonals(board)
      setWinner(winner) 
    }
     function checkRows (board: any[][]) {
@@ -81,10 +80,11 @@ function App() {
        <div className='board'>
          {board.map((row, rowIndex) => {
             return row.map((cell, cellIndex) => {
-              return <div className='cell' onClick={()=>{
+              return <div className='cell' onClick={(e)=>{
                 setPlayerX(!playerX)
                 clickCell (rowIndex, cellIndex)
                 checkWinner ()
+              
               }}>{cell.value}</div>
             })
          }
